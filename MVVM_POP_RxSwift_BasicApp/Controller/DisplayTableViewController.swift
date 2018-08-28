@@ -12,34 +12,31 @@ import RxCocoa
 
 class DisplayTableViewController: UIViewController{
 	
-		@IBOutlet weak var tableView: UITableView!
+  @IBOutlet weak var tableView: UITableView!
 	
 	  //RxSwift
-	  let socketsViewModel = SocketsViewModel()
-		let disposeBag = DisposeBag()
+  let socketsViewModel = SocketsViewModel()
+  let disposeBag = DisposeBag()
 	
-    override func viewDidLoad() {
+  override func viewDidLoad() {
         super.viewDidLoad()
 
-			//test rxswift
-			_ = Observable.of("Hello RxSwift")
-			
-			setupCellConfiguration()
-    }
+    setupCellConfiguration()
+  }
 	
 	
 	// MARK: loads table view cells - and updates when view model changes - Reactive setup (RxSwift)
-		private func setupCellConfiguration() {
-			socketsViewModel.americanSockets.asObservable().bind(to: tableView
-				.rx
-				.items(cellIdentifier: "cell",
-							 cellType: UITableViewCell.self)) {
-								row, socket, cell in
-								cell.textLabel?.text = socket.name
-				}
-				.disposed(by: disposeBag)
-		
-		}
+	private func setupCellConfiguration() {
+		socketsViewModel.americanSockets.asObservable().bind(to: tableView
+			.rx
+			.items(cellIdentifier: "cell",
+						 cellType: UITableViewCell.self)) {
+							row, socket, cell in
+							cell.textLabel?.text = socket.name
+			}
+			.disposed(by: disposeBag)
+
+	}
 	
 	
 	@IBAction func updateModel() {
@@ -51,19 +48,19 @@ class DisplayTableViewController: UIViewController{
 		
 	}
 
-		override func didReceiveMemoryWarning() {
-			super.didReceiveMemoryWarning()
-			// Dispose of any resources that can be recreated.
-		}
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
 	
-    // MARK: - Navigation
+	// MARK: - Navigation
 
 	/*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	// In a storyboard-based application, you will often want to do a little preparation before navigation
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+			// Get the new view controller using segue.destinationViewController.
+			// Pass the selected object to the new view controller.
+	}
+	*/
 
 }
