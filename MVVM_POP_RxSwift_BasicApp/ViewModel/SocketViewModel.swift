@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import RxSwift
+
+final class SocketsViewModel {
+	 let americanSockets = Variable<[Socket]>([])
+	
+	init() {
+		americanSockets.value = Socket.northAmerica
+	}
+}
