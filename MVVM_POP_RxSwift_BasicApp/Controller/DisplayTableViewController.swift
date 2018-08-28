@@ -14,27 +14,27 @@ class DisplayTableViewController: UIViewController{
 	
   @IBOutlet weak var tableView: UITableView!
 	
-	  //RxSwift
-  let socketsViewModel = SocketsViewModel()
-  let disposeBag = DisposeBag()
-	
-  override func viewDidLoad() {
-        super.viewDidLoad()
+	//RxSwift
+	let socketsViewModel = SocketsViewModel()
+	let disposeBag = DisposeBag()
 
-    setupCellConfiguration()
-  }
-	
-	
+	override func viewDidLoad() {
+			super.viewDidLoad()
+
+	setupCellConfiguration()
+	}
+
+
 	// MARK: loads table view cells - and updates when view model changes - Reactive setup (RxSwift)
 	private func setupCellConfiguration() {
-		socketsViewModel.americanSockets.asObservable().bind(to: tableView
-			.rx
-			.items(cellIdentifier: "cell",
-						 cellType: UITableViewCell.self)) {
-							row, socket, cell in
-							cell.textLabel?.text = socket.name
-			}
-			.disposed(by: disposeBag)
+	socketsViewModel.americanSockets.asObservable().bind(to: tableView
+		.rx
+		.items(cellIdentifier: "cell",
+					 cellType: UITableViewCell.self)) {
+						row, socket, cell in
+						cell.textLabel?.text = socket.name
+		}
+		.disposed(by: disposeBag)
 
 	}
 	
