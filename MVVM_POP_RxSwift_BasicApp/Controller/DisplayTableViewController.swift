@@ -20,6 +20,7 @@ class DisplayTableViewController: UIViewController{
 
   let example = ExampleClass()
   let model = GoogleModel()
+  let model2 = GoogleModel2()
   
 	override func viewDidLoad() {
 			super.viewDidLoad()
@@ -46,9 +47,29 @@ class DisplayTableViewController: UIViewController{
 //        debugPrint(element)
 //      })
 //      .addDisposableTo(disposeBag)
+    //4
+//    model2.fetchNewString()
+//
+//    model2.googleString.subscribe({  [weak self] (element) in
+//              debugPrint(element)
+//            })
+//      .disposed(by: disposeBag)
     
+    //5
+    //"Easy mode" - Variable
+    //accesses the “current” variableString at any time
+    example.runVariableExample()
     
-   }
+    ////VARIABLE - access here too
+    //Observing the value
+    example.variableString.asObservable()
+      .subscribe(onNext: { text in
+        print(text)
+      })
+      .addDisposableTo(disposeBag)
+    
+}
+  
  
 
 
@@ -74,10 +95,8 @@ class DisplayTableViewController: UIViewController{
 		//socketsViewModel.sockets.value.remove(at: 1)
 		//socketsViewModel.sockets.value.insert(s, at: 3)
     
-    
-   
-    
-  
+    //VARIABLE - Setting the value again
+    example.variableString.value = "updated-String"
 		
 	}
 
