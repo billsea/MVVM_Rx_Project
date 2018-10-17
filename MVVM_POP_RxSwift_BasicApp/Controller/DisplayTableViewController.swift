@@ -30,6 +30,11 @@ class DisplayTableViewController: UIViewController{
       setupCellConfiguration()
 	}
   
+  
+  /////////////
+  //A Subject(PublishSubject, Replay, Behavior, Variable) is an output(Observable) but it’s also an input! That means that you can dynamically/imperatively emit new elements in a sequence
+  ///////////////////////////
+  
   func testRxFunction(){
     //1
     //example.runExample()
