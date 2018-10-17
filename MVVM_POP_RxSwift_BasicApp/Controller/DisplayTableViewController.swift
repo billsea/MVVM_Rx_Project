@@ -18,11 +18,39 @@ class DisplayTableViewController: UIViewController{
 	let socketsViewModel = SocketsViewModel()
 	let disposeBag = DisposeBag()
 
+  let example = ExampleClass()
+  let model = GoogleModel()
+  
 	override func viewDidLoad() {
 			super.viewDidLoad()
 
-	setupCellConfiguration()
+      testRxFunction()
+    
+      setupCellConfiguration()
 	}
+  
+  func testRxFunction(){
+    //1
+    //example.runExample()
+    
+    //2
+//    example.runJustExample()
+//    example.observableJust.subscribe(onCompleted: {
+//      print("I'm done")
+//    }).disposed(by: disposeBag)
+    
+    //3
+    //Remember about [weak self]/[unowned self] to prevent retain cycles!
+//    model.createGoogleDataObservable()
+//      .subscribe({  [weak self] (element) in
+//        debugPrint(element)
+//      })
+//      .addDisposableTo(disposeBag)
+    
+    
+   }
+ 
+
 
 
 	// MARK: loads table view cells - and updates when view model changes - Reactive setup (RxSwift)
@@ -41,10 +69,15 @@ class DisplayTableViewController: UIViewController{
 	
 	@IBAction func updateModel() {
 		let s = Socket(name: "one", position: 0, delay: 0, voltage: 120)
-
+    
 		socketsViewModel.americanSockets.value.append(s)
 		//socketsViewModel.sockets.value.remove(at: 1)
 		//socketsViewModel.sockets.value.insert(s, at: 3)
+    
+    
+   
+    
+  
 		
 	}
 
