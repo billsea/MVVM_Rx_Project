@@ -18,14 +18,14 @@ class DisplayTableViewController: UIViewController{
 	let socketsViewModel = SocketsViewModel()
 	let disposeBag = DisposeBag()
 
-  let example = ExampleClass()
-  let model = GoogleModel()
-  let model2 = GoogleModel2()
+//  let example = ExampleClass()
+//  let model = GoogleModel()
+//  let model2 = GoogleModel2()
   
 	override func viewDidLoad() {
 			super.viewDidLoad()
 
-      testRxFunction()
+      //testRxFunction()
     
       setupCellConfiguration()
 	}
@@ -63,22 +63,10 @@ class DisplayTableViewController: UIViewController{
     //5
     //"Easy mode" - Variable
     //accesses the “current” variableString at any time
-    example.runVariableExample()
-    
-    ////VARIABLE - access here too
-    //Observing the value
-    example.variableString.asObservable()
-      .subscribe(onNext: { text in
-        print(text)
-      })
-      .addDisposableTo(disposeBag)
+    //example.runVariableExample()
     
 }
   
- 
-
-
-
 	// MARK: loads table view cells - and updates when view model changes - Reactive setup (RxSwift)
 	private func setupCellConfiguration() {
 	socketsViewModel.americanSockets.asObservable().bind(to: tableView
@@ -86,23 +74,26 @@ class DisplayTableViewController: UIViewController{
 		.items(cellIdentifier: "cell",
 					 cellType: UITableViewCell.self)) {
 						row, socket, cell in
-						cell.textLabel?.text = socket.name
+            //add observable to socket name(Variable(string)), to subscribe to property updates
+            socket.name.asObservable().subscribe({ val in
+              cell.textLabel?.text = val.element
+              }
+            )
 		}
 		.disposed(by: disposeBag)
-
 	}
 	
 	
 	@IBAction func updateModel() {
-		let s = Socket(name: "one", position: 0, delay: 0, voltage: 120)
-    
-		socketsViewModel.americanSockets.value.append(s)
+		
+    //Add or remove socket object
+    //let s = Socket(name: Variable("new object"), position: Variable(5), delay: 0, voltage: 120)
+		//socketsViewModel.americanSockets.value.append(s)
 		//socketsViewModel.sockets.value.remove(at: 1)
 		//socketsViewModel.sockets.value.insert(s, at: 3)
     
-    //VARIABLE - Setting the value again
-    example.variableString.value = "updated-String"
-		
+    //Update a single property in the collection
+    socketsViewModel.updateTest()
 	}
 
 	override func didReceiveMemoryWarning() {
